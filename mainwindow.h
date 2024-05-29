@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QFile>
+#include <dialog.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,6 +18,8 @@ public:
     void dropEvent(QDropEvent *event) override;
     void dragEnterEvent(QDragEnterEvent *e) override;
     void sign();
+    QStringList filelist;
+
     ~MainWindow();
 
 private slots:
@@ -24,6 +27,8 @@ private slots:
 
     void on_btnFiles_clicked();
 
+
+    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

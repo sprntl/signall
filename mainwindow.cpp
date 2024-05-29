@@ -4,6 +4,7 @@
 #include <QMimeData>
 #include <QString>
 #include <QProcess>
+#include <QStringList>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     if (file.exists()) ui->status->setText("Установлен");
             else ui->status->setText("Не установлен");
     setAcceptDrops(true);
+    ui->pushButton->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -36,7 +38,6 @@ void MainWindow::on_btnFiles_clicked()
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 {
-    if (event->mimeData()->hasFormat("text/plain"))
            event->acceptProposedAction();
 }
 
@@ -44,18 +45,27 @@ void MainWindow::dropEvent(QDropEvent *event)
 {
     foreach (const QUrl &url, event->mimeData()->urls()) {
             QString fileName = url.toLocalFile();
-            qDebug() << "Dropped file:" << fileName;
+            filelist.append(fileName);
     }
+    ui->pushButton->setEnabled(true);
 }
-
 
 
 void MainWindow::sign()
 {
     QString file;
     QString certificate;
-    QString program = "/opt/cprocsp/bin/amd64/cryptcp";
+    QString key_path="/var/opt/cprocsp/keys/user";
+    /*QString program = "/opt/cprocsp/bin/amd64/cryptcp";
     QProcess *myProcess = new QProcess(this);
-    myProcess->start(program);
+    myProcess->start(program);*/
+    Dialog *change_cert = new Dialog();
+    change_cert->show();
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+        sign();
 }
 
