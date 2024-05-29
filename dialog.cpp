@@ -6,6 +6,7 @@ Dialog::Dialog(QWidget *parent) :
     ui(new Ui::Dialog)
 {
     QStringList cont_list;
+    QStringList list;
     ui->setupUi(this);
     app_path="/opt/cprocsp/bin/amd64/csptest";
     QProcess *app=new QProcess();
@@ -15,13 +16,11 @@ Dialog::Dialog(QWidget *parent) :
     app->waitForFinished();
     cont_list.append(app->readAllStandardOutput());
     app->close();
-    for (int i=0;i<=cont_list.count()-1;i++)
+
+    for (int i=0;i<=cont_list.size()-1;i++)
     {
         ui->textEdit->append(cont_list[i]);
     }
-    ui->label->setText(cont_list.at(3));
-
-
 }
 
 Dialog::~Dialog()
