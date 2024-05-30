@@ -5,6 +5,9 @@
 #include <QProcess>
 #include <QString>
 #include <QStringList>
+#include <QPushButton>
+#include <QSize>
+#include <QVBoxLayout>
 
 namespace Ui {
 class Dialog;
@@ -18,7 +21,10 @@ public:
     explicit Dialog(QWidget *parent = nullptr);
     QString params;
     QString app_path;
+    QString selected;
     ~Dialog();
+public slots:
+    void select_cert(QString);
 
 private:
     Ui::Dialog *ui;
